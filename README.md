@@ -1,16 +1,42 @@
-# shopping_cart
+# 🛒 Shopping Cart
 
-A new Flutter project.
+![Shopping Cart](https://img.icons8.com/external-flat-juicy-fish/64/external-shopping-cart-online-shopping-flat-flat-juicy-fish.png)
 
-## Getting Started
+## 📜 Description
 
-This project is a starting point for a Flutter application.
+This project was created for the Flutter BootCamp organized by **Globant Bahía Blanca**. The main idea is to apply concepts and functions learned during the classes, creating a functional shopping cart that enhances user experience.
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Technologies Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Flutter**: A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+- **Dart**: The programming language used to write Flutter applications.
+- **Provider**: State management solution for Flutter.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📥 Installation
+
+To run this project locally, follow these steps:
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/shopping-cart.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd shopping-cart
+   ```
+3. Install dependencies:
+    ```bash
+    flutter pub get
+    ```
+4. Run the application:
+    ```bash
+    flutter run
+    ```
+
+## 👐 Contributing
+Contributions are welcome! If you have suggestions for improvements or new features, feel free to create a pull request.
+
+## 🤝 Acknowledgments
+
+- **Globant Bahía Blanca** for the opportunity and the learning experience.
+- To all my BootCamp classmates for their support and collaboration.
