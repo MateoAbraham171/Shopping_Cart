@@ -16,11 +16,11 @@ To run this project locally, follow these steps:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/shopping-cart.git
+   git clone https://github.com/MateoAbraham171/Shopping_Cart.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd shopping-cart
+   cd Shopping_Cart
    ```
 3. Install dependencies:
     ```bash
