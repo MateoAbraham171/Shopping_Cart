@@ -1,24 +1,26 @@
-name: shopping_cart_app
-description: A Flutter project for a shopping cart application.
-
+name: product_prices
+description: "A new Flutter project."
 publish_to: 'none'
-
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: '>=3.4.4 <4.0.0'
 
 dependencies:
+  cached_network_image: ^3.4.1
+  dio: ^5.7.0
   flutter:
     sdk: flutter
-  http: ^0.13.5
-  provider: ^6.0.5
-  cupertino_icons: ^1.0.2
+  http: ^1.2.2
+  logging: ^1.2.0
+  provider: ^6.1.2
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true

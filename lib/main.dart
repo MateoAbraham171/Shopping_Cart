@@ -1,32 +1,41 @@
+import 'package:product_prices/src/data/data.dart';
+import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'screens/product_list_screen.dart';
-import 'screens/product_detail_screen.dart';
-import 'screens/checkout_screen.dart';
-import 'models/cart.dart';
 
-void main() {
-  runApp(MyApp());
+import 'src/domain/cart.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<Products>.value(
+          value: Products(productRepository: HttpProductRepository()),
+        ),
+        ChangeNotifierProvider<Cart>(  
+          create: (_) => Cart(),
+        ),
+      ],
+      child: const ProductPricesApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+class ProductPricesApp extends StatelessWidget {
+  const ProductPricesApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => Cart(),
-      child: MaterialApp(
-        title: 'Shopping Cart App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: ProductListScreen(),
-        routes: {
-          ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-          CheckoutScreen.routeName: (ctx) => CheckoutScreen(),
-        },
+    return Consumer(
+      builder: (context, prefs, child) => MaterialApp(
+        darkTheme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+        home: const ProductListScreen(),
+        theme: ThemeData.dark(),
+        title: 'Shopping Cart',
       ),
     );
   }
