@@ -1,7 +1,5 @@
 # 🛒 Shopping Cart
 
-![Shopping Cart](https://img.icons8.com/external-flat-juicy-fish/64/external-shopping-cart-online-shopping-flat-flat-juicy-fish.png)
-
 ## 📜 Description
 
 This project was created for the Flutter BootCamp organized by **Globant Bahía Blanca**. The main idea is to apply concepts and functions learned during the classes, creating a functional shopping cart that enhances user experience.
