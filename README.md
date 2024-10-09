@@ -38,3 +38,4 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 
 - **Globant Bahía Blanca** for the opportunity and the learning experience.
 - To all my BootCamp classmates for their support and collaboration.
+- Special thanks to Professor Emanuel López for his endless patience, positive attitude, and unwavering support.
