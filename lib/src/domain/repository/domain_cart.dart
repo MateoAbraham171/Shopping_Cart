@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:product_prices/src/domain/domain.dart';
 
-class Cart with ChangeNotifier {
+class CartDomain {
   final Map<Product, int> _items = {};
 
   Map<Product, int> get items => _items;
@@ -12,7 +11,6 @@ class Cart with ChangeNotifier {
     } else {
       _items[product] = 1;
     }
-    notifyListeners();
   }
 
   void removeFromCart(Product product) {
@@ -22,13 +20,11 @@ class Cart with ChangeNotifier {
       } else {
         _items[product] = _items[product]! - 1;
       }
-      notifyListeners();
     }
   }
 
   void clearCart() {
     _items.clear();
-    notifyListeners();
   }
 
   int get totalItems => _items.values.fold(0, (sum, qty) => sum + qty);

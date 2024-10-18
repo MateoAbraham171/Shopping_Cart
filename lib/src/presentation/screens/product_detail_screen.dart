@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:product_prices/src/presentation/state/presentation_cart.dart';
 import 'package:provider/provider.dart';
-import '../../domain/cart.dart';
 import 'package:product_prices/src/domain/domain.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -73,7 +73,7 @@ class ProductDetailScreen extends StatelessWidget {
           },
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress == null) return child;
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),
@@ -125,7 +125,7 @@ class ProductDetailScreen extends StatelessWidget {
           Center(
             child: ElevatedButton.icon(
               onPressed: () {
-                context.read<Cart>().addToCart(product);
+                context.read<CartNotifier>().addToCart(product);  // Cambia Cart por CartNotifier
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('${product.title} añadido al carrito'),
@@ -133,6 +133,7 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                 );
               },
+
               icon: const Icon(Icons.shopping_cart),
               label: const Text('Añadir al carrito'),
               style: ElevatedButton.styleFrom(

@@ -3,8 +3,6 @@ import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'src/domain/cart.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -14,15 +12,14 @@ void main() async {
         Provider<Products>.value(
           value: Products(productRepository: HttpProductRepository()),
         ),
-        ChangeNotifierProvider<Cart>(  
-          create: (_) => Cart(),
+        ChangeNotifierProvider<CartNotifier>(  // Cambia Cart por CartNotifier
+          create: (_) => CartNotifier(),
         ),
       ],
       child: const ProductPricesApp(),
     ),
   );
 }
-
 
 class ProductPricesApp extends StatelessWidget {
   const ProductPricesApp({super.key});

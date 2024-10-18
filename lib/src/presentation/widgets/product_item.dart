@@ -3,8 +3,6 @@ import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../domain/cart.dart';
-
 class ProductItem extends StatelessWidget {
   final Product product;
   final VoidCallback onAddToCartPressed;
@@ -18,7 +16,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    context.watch<Cart>(); 
+    context.watch<CartNotifier>(); 
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,

@@ -1,10 +1,7 @@
 import 'package:product_prices/src/domain/domain.dart';
-import 'package:product_prices/src/presentation/presentation.dart';
+import 'package:product_prices/src/presentation/presentation.dart'; // Esto ahora incluye CartScreen
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../domain/cart.dart';
-import '../widgets/cart_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -83,7 +80,7 @@ class _ProductListBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = context.watch<Cart>();  
+    final cart = context.watch<CartNotifier>();
 
     return ListView.separated(
       itemCount: productList.length, 

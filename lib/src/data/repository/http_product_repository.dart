@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
+import 'package:product_prices/src/data/repository/data_product.dart';
 import 'package:product_prices/src/domain/domain.dart';
 
 class HttpProductRepository implements ProductRepository {
@@ -20,7 +21,7 @@ class HttpProductRepository implements ProductRepository {
 
     if (response.statusCode == HttpStatus.ok) {
       // Convertimos la respuesta JSON a una lista de productos
-      final productList = Product.fromDynamicList(
+      final productList = DataProduct.fromDynamicList(
         json.decode(response.body),
       );
       return productList;
