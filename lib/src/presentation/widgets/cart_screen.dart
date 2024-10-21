@@ -6,23 +6,49 @@ class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
   @override
-  _CartScreenState createState() => _CartScreenState();
+  CartScreenState createState() => CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class CartScreenState extends State<CartScreen> {
   bool _isHoveringEmpty = false; 
   bool _isHoveringPurchase = false; 
 
   @override
   Widget build(BuildContext context) {
     final cart = context.watch<CartNotifier>();
+    final navigator = Navigator.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Carrito de Compras'),
       ),
       body: cart.totalItems == 0
-          ? const Center(child: Text('El carrito está vacío'))
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('El carrito está vacío'),
+                  const SizedBox(height: 16.0),
+                  MouseRegion(
+                    onEnter: (_) => setState(() => _isHoveringEmpty = true),
+                    onExit: (_) => setState(() => _isHoveringEmpty = false),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                        backgroundColor: _isHoveringEmpty ? const Color.fromARGB(255, 43, 147, 231) : const Color.fromARGB(0, 37, 164, 238),
+                      ),
+                      onPressed: () {
+                        navigator.pop(); // Navegar de vuelta a la pantalla anterior
+                      },
+                      child: Text('Ver Productos', style: TextStyle(
+												fontSize: 16.0,
+												color: _isHoveringEmpty ? Colors.black : Colors.white,)
+											),
+                    ),
+                  ),
+                ],
+              ),
+            )
           : Column(
               children: [
                 Expanded(
@@ -32,44 +58,66 @@ class _CartScreenState extends State<CartScreen> {
                       final product = cart.items.keys.elementAt(index);
                       final quantity = cart.items[product]!;
 
-                      return ListTile(
-                        leading: ProductImage(
-                          height: 100.0, 
-                          width: 100.0,
-                          tag: product.id.toString(),
-                          url: product.images[0],
-                        ),
-                        title: Text(
-                          product.title,
-                          style: const TextStyle(fontSize: 18.0),
-                        ),
-                        subtitle: Text(
-                          'Cantidad: $quantity',
-                          style: const TextStyle(fontSize: 16.0), 
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              '\$${(product.price * quantity).toStringAsFixed(2)}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0, 
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
+                          leading: ProductImage(
+                            height: 100.0,
+                            width: 100.0,
+                            tag: product.id.toString(),
+                            url: product.images[0],
+                          ),
+                          title: Text(
+                            product.title,
+                            style: const TextStyle(fontSize: 18.0),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Precio unitario: \$${product.price.toStringAsFixed(2)}',
+                                style: const TextStyle(fontSize: 14.0),
                               ),
+                              Text(
+                                'Cantidad: $quantity',
+                                style: const TextStyle(fontSize: 14.0),
+                              ),
+                            ],
+                          ),
+                          trailing: SizedBox(
+                            width: 200.0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Total: \$${(product.price * quantity).toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.0,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.remove_circle),
+                                      onPressed: () {
+                                        cart.removeFromCart(product);
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.add_circle),
+                                      onPressed: () {
+                                        cart.addToCart(product);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.add_circle),
-                              onPressed: () {
-                                cart.addToCart(product);
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.remove_circle),
-                              onPressed: () {
-                                cart.removeFromCart(product);
-                              },
-                            ),
-                          ],
+                          ),
                         ),
                       );
                     },
@@ -93,7 +141,7 @@ class _CartScreenState extends State<CartScreen> {
                             onExit: (_) => setState(() => _isHoveringEmpty = false),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), 
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                                 backgroundColor: _isHoveringEmpty ? Colors.red : const Color.fromARGB(0, 33, 149, 243),
                               ),
                               onPressed: () {
