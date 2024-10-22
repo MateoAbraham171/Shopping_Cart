@@ -41,9 +41,9 @@ class CartScreenState extends State<CartScreen> {
                         navigator.pop(); // Navegar de vuelta a la pantalla anterior
                       },
                       child: Text('Ver Productos', style: TextStyle(
-												fontSize: 16.0,
-												color: _isHoveringEmpty ? Colors.black : Colors.white,)
-											),
+                        fontSize: 16.0,
+                        color: _isHoveringEmpty ? Colors.black : Colors.white,
+                      )),
                     ),
                   ),
                 ],

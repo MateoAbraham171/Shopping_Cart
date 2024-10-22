@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:product_prices/src/presentation/state/presentation_cart.dart';
 import 'package:provider/provider.dart';
 import 'package:product_prices/src/domain/domain.dart';
+import 'package:product_prices/src/presentation/state/presentation_cart.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
@@ -20,26 +20,30 @@ class ProductDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(product.title)),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (isMobile) _buildProductImage(screenSize, isMobile),
-              if (!isMobile) 
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: _buildProductInfo(theme, context)),
-                    SizedBox(width: screenSize.width * 0.4, child: _buildProductImage(screenSize, isMobile)),
-                  ],
-                )
-              else
-                _buildProductInfo(theme, context),
-            ],
-          ),
-        ),
+        padding: const EdgeInsets.all(16.0),
+        child: isMobile ? _buildMobileLayout(theme, context, screenSize) : _buildDesktopLayout(theme, context, screenSize),
       ),
+    );
+  }
+
+  Widget _buildMobileLayout(ThemeData theme, BuildContext context, Size screenSize) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildProductImage(screenSize, true),
+        _buildProductInfo(theme, context),
+      ],
+    );
+  }
+
+  Widget _buildDesktopLayout(ThemeData theme, BuildContext context, Size screenSize) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: _buildProductInfo(theme, context)),
+        SizedBox(width: screenSize.width * 0.05), 
+        _buildProductImage(screenSize, false),
+      ],
     );
   }
 
@@ -63,7 +67,7 @@ class ProductDetailScreen extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Image.network(
-          product.images[0],
+          product.images.isNotEmpty ? product.images[0] : '',
           fit: BoxFit.contain,
           errorBuilder: (context, error, stackTrace) {
             return Container(
@@ -81,8 +85,8 @@ class ProductDetailScreen extends StatelessWidget {
   }
 
   Widget _buildProductInfo(ThemeData theme, BuildContext context) {
-    return Padding( 
-      padding: const EdgeInsets.symmetric(vertical: 30.0), 
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -125,7 +129,7 @@ class ProductDetailScreen extends StatelessWidget {
           Center(
             child: ElevatedButton.icon(
               onPressed: () {
-                context.read<CartNotifier>().addToCart(product);  // Cambia Cart por CartNotifier
+                context.read<CartNotifier>().addToCart(product);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('${product.title} añadido al carrito'),
@@ -133,11 +137,10 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                 );
               },
-
               icon: const Icon(Icons.shopping_cart),
               label: const Text('Añadir al carrito'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(0, 25, 118, 210),
+                backgroundColor: Colors.blue, 
                 padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
                 textStyle: const TextStyle(fontSize: 18.0),
               ),

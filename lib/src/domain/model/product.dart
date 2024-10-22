@@ -4,7 +4,7 @@ class Product {
   final double price;
   final String description;
   final String category;
-  final String image; // Cambiado a String
+  final String image;
   final List<String> images;
 
   Product({

@@ -20,7 +20,6 @@ class HttpProductRepository implements ProductRepository {
     );
 
     if (response.statusCode == HttpStatus.ok) {
-      // Convertimos la respuesta JSON a una lista de productos
       final productList = DataProduct.fromDynamicList(
         json.decode(response.body),
       );

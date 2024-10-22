@@ -15,18 +15,30 @@ class Products implements Disposable {
   final ProductRepository _productRepository;
 
   final _productStreamController = StreamController<List<Product>>.broadcast();
+  List<Product> _productCache = []; 
 
   Stream<List<Product>> get productStream => _productStreamController.stream;
 
   void getProducts() async {
     try {
       final products = await _productRepository.getProductCurrencies();
+      _productCache = products; 
       _productStreamController.add(products);
     } catch (error) {
       _logger.severe('Error fetching products: $error');
       _productStreamController.addError(error);
     }
   }
+
+  Product? findProductById(String id) {
+  try {
+    final numericId = int.parse(id);
+    return _productCache.firstWhere((product) => product.id == numericId);
+  } catch (e) {
+    _logger.warning('Product with ID $id not found or invalid ID format');
+    return null;
+  }
+}
 
   @override
   void dispose() {

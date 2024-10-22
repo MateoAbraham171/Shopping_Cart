@@ -1,5 +1,5 @@
 import 'package:product_prices/src/domain/domain.dart';
-import 'package:product_prices/src/presentation/presentation.dart'; // Esto ahora incluye CartScreen
+import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
