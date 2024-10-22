@@ -69,12 +69,12 @@
         "description": "Button text to navigate back to products"
     },
 
-    "total": "Total: ${totalPrice}",
+    "total": "Total: {totalPrice}",
     "@total": {
         "description": "Label for the total price in the cart",
         "placeholders": {
             "totalPrice": {
-                "type": "double",
+                "type": "String",
                 "example": "59.99"
             }
         }

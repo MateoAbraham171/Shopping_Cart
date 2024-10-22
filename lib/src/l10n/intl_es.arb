@@ -69,12 +69,12 @@
         "description": "Texto del botón para navegar de vuelta a los productos"
     },
 
-    "total": "Total: ${totalPrice}",
+    "total": "Total: {totalPrice}",
     "@total": {
         "description": "Etiqueta para el precio total en el carrito",
         "placeholders": {
             "totalPrice": {
-                "type": "double",
+                "type": "String",
                 "example": "59.99"
             }
         }

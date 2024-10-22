@@ -131,7 +131,7 @@ class CartScreenState extends State<CartScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end, 
                     children: [
                       Text(
-                        S.of(context).total(cart.totalPrice),
+                        S.of(context).total(NumberFormat.simpleCurrency(locale: Localizations.localeOf(context).toString()).format(cart.totalPrice)),
                         style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 16.0),
