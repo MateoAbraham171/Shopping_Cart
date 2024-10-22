@@ -1,0 +1,113 @@
+{
+    "@@locale": "en",
+    
+    "categoryLabel": "Category: {category}",
+    "@categoryLabel": {
+        "description": "Label that displays the product category",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "Electronics"
+            }
+        }
+    },
+
+    "productDescription": "Description: ",
+    "@productDescription": {
+        "description": "Label for the product description"
+    },
+
+    "addToCart": "Add to cart",
+    "@addToCart": {
+        "description": "Button text to add a product to the cart"
+    },
+
+    "watchCart": "View cart",
+    "@watchCart": {
+        "description": "Button text to view the cart"
+    },
+
+    "ourBestProducts": "Our best products",
+    "@ourBestProducts": {
+        "description": "Title of the product_list_screen page"
+    },
+
+    "addToCartSnackBar": "{product} added to the cart",
+    "@addToCartSnackBar": {
+        "description": "Label that shows when a product is added to the cart",
+        "placeholders": {
+            "product": {
+                "type": "String",
+                "example": "Viking wristband"
+            }
+        }
+    },
+
+    "productNotFound": "We could not find the product {productId}.",
+    "@productNotFound": {
+        "description": "Label displayed when a product is not found",
+        "placeholders": {
+            "productId": {
+                "type": "String",
+                "example": "1"
+            }
+        }
+    },
+
+    "cartScreenTitle": "Shopping Cart",
+    "@cartScreenTitle": {
+        "description": "Title of the cart screen"
+    },
+
+    "emptyCartMessage": "The cart is empty",
+    "@emptyCartMessage": {
+        "description": "Message displayed when the cart is empty"
+    },
+
+    "viewProducts": "View Products",
+    "@viewProducts": {
+        "description": "Button text to navigate back to products"
+    },
+
+    "total": "Total: ${totalPrice}",
+    "@total": {
+        "description": "Label for the total price in the cart",
+        "placeholders": {
+            "totalPrice": {
+                "type": "double",
+                "example": "59.99"
+            }
+        }
+    },
+
+    "clearCart": "Clear Cart",
+    "@clearCart": {
+        "description": "Button text to clear the cart"
+    },
+
+    "purchase": "Make Purchase",
+    "@purchase": {
+        "description": "Button text to make a purchase"
+    },
+
+    "cartCleared": "Cart cleared",
+    "@cartCleared": {
+        "description": "Message displayed when the cart is cleared"
+    },
+
+    "purchaseMade": "Purchase made",
+    "@purchaseMade": {
+        "description": "Message displayed when a purchase is completed"
+    },
+
+    "productNotFoundWarning": "Product with ID {productId} not found or invalid ID format",
+    "@productNotFoundWarning": {
+        "description": "Warning message when a product is not found or the ID format is invalid",
+        "placeholders": {
+            "productId": {
+                "type": "String",
+                "example": "123"
+            }
+        }
+    }
+}

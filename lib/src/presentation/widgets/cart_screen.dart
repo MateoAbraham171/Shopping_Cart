@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:product_prices/src/presentation/presentation.dart';
+import 'package:product_prices/generated/l10n.dart';
+import 'package:intl/intl.dart'; 
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -20,14 +22,14 @@ class CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Carrito de Compras'),
+        title: Text(S.of(context).cartScreenTitle),
       ),
       body: cart.totalItems == 0
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('El carrito está vacío'),
+                  Text(S.of(context).emptyCartMessage),
                   const SizedBox(height: 16.0),
                   MouseRegion(
                     onEnter: (_) => setState(() => _isHoveringEmpty = true),
@@ -38,9 +40,9 @@ class CartScreenState extends State<CartScreen> {
                         backgroundColor: _isHoveringEmpty ? const Color.fromARGB(255, 43, 147, 231) : const Color.fromARGB(0, 37, 164, 238),
                       ),
                       onPressed: () {
-                        navigator.pop(); // Navegar de vuelta a la pantalla anterior
+                        navigator.pop(); 
                       },
-                      child: Text('Ver Productos', style: TextStyle(
+                      child: Text(S.of(context).viewProducts, style: TextStyle(
                         fontSize: 16.0,
                         color: _isHoveringEmpty ? Colors.black : Colors.white,
                       )),
@@ -75,7 +77,7 @@ class CartScreenState extends State<CartScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Precio unitario: \$${product.price.toStringAsFixed(2)}',
+                                '${S.of(context).productDescription} ${NumberFormat.simpleCurrency(locale: Localizations.localeOf(context).toString()).format(product.price)}',
                                 style: const TextStyle(fontSize: 14.0),
                               ),
                               Text(
@@ -91,7 +93,7 @@ class CartScreenState extends State<CartScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Total: \$${(product.price * quantity).toStringAsFixed(2)}',
+                                  'Total: ${NumberFormat.simpleCurrency(locale: Localizations.localeOf(context).toString()).format(product.price * quantity)}',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14.0,
@@ -129,7 +131,7 @@ class CartScreenState extends State<CartScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end, 
                     children: [
                       Text(
-                        'Total: \$${cart.totalPrice.toStringAsFixed(2)}',
+                        S.of(context).total(cart.totalPrice),
                         style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 16.0),
@@ -147,10 +149,10 @@ class CartScreenState extends State<CartScreen> {
                               onPressed: () {
                                 cart.clearCart(); 
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Carrito vaciado')),
+                                  SnackBar(content: Text(S.of(context).cartCleared)),
                                 );
                               },
-                              child: const Text('Vaciar Carrito', style: TextStyle(fontSize: 16.0)),
+                              child: Text(S.of(context).clearCart, style: const TextStyle(fontSize: 16.0)),
                             ),
                           ),
                           const SizedBox(width: 16.0),
@@ -164,11 +166,11 @@ class CartScreenState extends State<CartScreen> {
                               ),
                               onPressed: () {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Compra realizada')),
+                                  SnackBar(content: Text(S.of(context).purchaseMade)),
                                 );
                                 cart.clearCart();
                               },
-                              child: const Text('Realizar Compra', style: TextStyle(fontSize: 16.0)),
+                              child: Text(S.of(context).purchase, style: const TextStyle(fontSize: 16.0)),
                             ),
                           ),
                         ],

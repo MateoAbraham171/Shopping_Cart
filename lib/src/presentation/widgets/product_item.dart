@@ -2,6 +2,7 @@ import 'package:product_prices/src/domain/domain.dart';
 import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
@@ -85,7 +86,7 @@ class ProductItem extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                '\$ ${product.price.toStringAsFixed(2)}',
+                NumberFormat.simpleCurrency(locale: Localizations.localeOf(context).toString()).format(product.price),
                 style: theme.textTheme.titleLarge,
                 textAlign: TextAlign.end,
               ),
@@ -100,8 +101,7 @@ class ProductItem extends StatelessWidget {
                 ),
                 tooltip: 'Añadir al carrito',
               ),
-            )
-
+            ),
           ],
         ),
       ),

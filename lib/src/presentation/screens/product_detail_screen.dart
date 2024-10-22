@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:product_prices/src/domain/domain.dart';
 import 'package:product_prices/src/presentation/state/presentation_cart.dart';
+import 'package:product_prices/generated/l10n.dart'; 
+import 'package:intl/intl.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
@@ -91,7 +93,7 @@ class ProductDetailScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '\$${product.price.toStringAsFixed(2)}',
+            NumberFormat.simpleCurrency(locale: Localizations.localeOf(context).toString()).format(product.price),
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
@@ -100,7 +102,7 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           Text(
-            'Category: ${product.category}',
+            S.of(context).categoryLabel(product.category),
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
               color: const Color.fromARGB(255, 47, 91, 134),
@@ -109,7 +111,7 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           Text(
-            'Description',
+            S.of(context).productDescription,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
@@ -132,13 +134,13 @@ class ProductDetailScreen extends StatelessWidget {
                 context.read<CartNotifier>().addToCart(product);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('${product.title} añadido al carrito'),
+                    content: Text(S.of(context).addToCartSnackBar(product.title)),
                     duration: const Duration(seconds: 1),
                   ),
                 );
               },
               icon: const Icon(Icons.shopping_cart),
-              label: const Text('Añadir al carrito'),
+              label: Text(S.of(context).addToCart),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue, 
                 padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),

@@ -1,3 +1,4 @@
+import 'package:product_prices/generated/l10n.dart';
 import 'package:product_prices/src/domain/domain.dart';
 import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   late final Products _productListState;
-  
+
   @override
   void initState() {
     super.initState();
@@ -32,13 +33,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Our Best Products'),
+        title: Text(S.of(context).ourBestProducts),
         actions: [
           TextButton.icon(
             icon: const Icon(Icons.shopping_cart, color: Colors.white),
-            label: const Text(
-              'Ver carrito',
-              style: TextStyle(color: Colors.white),
+            label: Text(
+              S.of(context).watchCart,
+              style: const TextStyle(color: Colors.white),
             ),
             onPressed: () => Navigator.push(
               context,
@@ -59,11 +60,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 child: Text('Error: ${snapshot.error}'),
               );
             }
-            
+
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             }
-            
+
             var productList = snapshot.data!;
             return _ProductListBody(productList: productList);
           },
@@ -83,9 +84,9 @@ class _ProductListBody extends StatelessWidget {
     final cart = context.watch<CartNotifier>();
 
     return ListView.separated(
-      itemCount: productList.length, 
+      itemCount: productList.length,
       itemBuilder: (context, index) {
-        final product = productList[index]; 
+        final product = productList[index];
 
         return ProductItem(
           product: product,
@@ -93,8 +94,8 @@ class _ProductListBody extends StatelessWidget {
             cart.addToCart(product);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('${product.title} añadido al carrito'),
-                duration: const Duration(seconds: 1), 
+                content: Text(S.of(context).addToCartSnackBar(product.title)),
+                duration: const Duration(seconds: 1),
               ),
             );
           },

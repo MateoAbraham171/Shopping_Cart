@@ -1,0 +1,113 @@
+{
+    "@@locale": "es",
+    
+    "categoryLabel": "Categoría: {category}",
+    "@categoryLabel": {
+        "description": "Etiqueta que muestra la categoría del producto",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "Electrónica"
+            }
+        }
+    },
+
+    "productDescription": "Descripción: ",
+    "@productDescription": {
+        "description": "Etiqueta para la descripción del producto"
+    },
+
+    "addToCart": "Añadir al carrito",
+    "@addToCart": {
+        "description": "Texto del botón para añadir un producto al carrito"
+    },
+
+    "watchCart": "Ver carrito",
+    "@watchCart": {
+        "description": "Texto del botón para ver el carrito"
+    },
+
+    "ourBestProducts": "Nuestros mejores productos",
+    "@ourBestProducts": {
+        "description": "Título de la página de lista de productos"
+    },
+
+    "addToCartSnackBar": "{product} añadido al carrito",
+    "@addToCartSnackBar": {
+        "description": "Etiqueta que muestra cuando un producto es añadido al carrito",
+        "placeholders": {
+            "product": {
+                "type": "String",
+                "example": "Pulsera vikinga"
+            }
+        }
+    },
+
+    "productNotFound": "No pudimos encontrar el producto {productId}.",
+    "@productNotFound": {
+        "description": "Etiqueta que se muestra cuando un producto no fue encontrado",
+        "placeholders": {
+            "productId": {
+                "type": "String",
+                "example": "1"
+            }
+        }
+    },
+
+    "cartScreenTitle": "Carrito de Compras",
+    "@cartScreenTitle": {
+        "description": "Título de la pantalla del carrito"
+    },
+
+    "emptyCartMessage": "El carrito está vacío",
+    "@emptyCartMessage": {
+        "description": "Mensaje que se muestra cuando el carrito está vacío"
+    },
+
+    "viewProducts": "Ver Productos",
+    "@viewProducts": {
+        "description": "Texto del botón para navegar de vuelta a los productos"
+    },
+
+    "total": "Total: ${totalPrice}",
+    "@total": {
+        "description": "Etiqueta para el precio total en el carrito",
+        "placeholders": {
+            "totalPrice": {
+                "type": "double",
+                "example": "59.99"
+            }
+        }
+    },
+
+    "clearCart": "Vaciar Carrito",
+    "@clearCart": {
+        "description": "Texto del botón para vaciar el carrito"
+    },
+
+    "purchase": "Realizar Compra",
+    "@purchase": {
+        "description": "Texto del botón para realizar una compra"
+    },
+
+    "cartCleared": "Carrito vaciado",
+    "@cartCleared": {
+        "description": "Mensaje que se muestra cuando se vacía el carrito"
+    },
+
+    "purchaseMade": "Compra realizada",
+    "@purchaseMade": {
+        "description": "Mensaje que se muestra cuando se completa una compra"
+    },
+
+    "productNotFoundWarning": "Producto con ID {productId} no encontrado o formato de ID inválido",
+    "@productNotFoundWarning": {
+        "description": "Mensaje de advertencia cuando un producto no es encontrado o el formato del ID es inválido",
+        "placeholders": {
+            "productId": {
+                "type": "String",
+                "example": "123"
+            }
+        }
+    }
+}

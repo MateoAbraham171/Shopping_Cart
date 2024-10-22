@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:product_prices/generated/l10n.dart';
 import 'package:product_prices/src/domain/domain.dart';
 import 'package:logging/logging.dart';
 
@@ -31,14 +32,14 @@ class Products implements Disposable {
   }
 
   Product? findProductById(String id) {
-  try {
-    final numericId = int.parse(id);
-    return _productCache.firstWhere((product) => product.id == numericId);
-  } catch (e) {
-    _logger.warning('Product with ID $id not found or invalid ID format');
-    return null;
+    try {
+      final numericId = int.parse(id);
+      return _productCache.firstWhere((product) => product.id == numericId);
+    } catch (e) {
+      _logger.warning(S.current.productNotFoundWarning(id));
+      return null;
+    }
   }
-}
 
   @override
   void dispose() {
