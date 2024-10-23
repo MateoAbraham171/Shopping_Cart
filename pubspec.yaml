@@ -32,6 +32,7 @@ flutter:
 
   assets:
     - assets/lottie/add_to_cart_animation.json
+    - assets/lottie/empty_cart.json
 
 flutter_intl:
   enabled: true
