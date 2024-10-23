@@ -1,3 +1,4 @@
+import 'package:product_prices/generated/l10n.dart';
 import 'package:product_prices/src/domain/domain.dart';
 import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,7 @@ class ProductItem extends StatelessWidget {
                   Icons.shopping_cart,
                   size: 30.0,
                 ),
-                tooltip: 'Añadir al carrito', // Mensaje de ayuda para el icono
+                tooltip: S.of(context).addToCart, // Mensaje de ayuda para el icono
               ),
             ),
           ],
