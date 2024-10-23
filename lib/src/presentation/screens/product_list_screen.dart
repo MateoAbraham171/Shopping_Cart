@@ -66,7 +66,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 }
 
                 if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
+                  // Muestra el esqueleto mientras los datos se están cargando
+                  return const ProductListSkeleton();
                 }
 
                 var productList = snapshot.data!;
