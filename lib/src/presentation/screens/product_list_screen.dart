@@ -19,15 +19,15 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
     super.initState();
-    _productListState = context.read<Products>();
+    _productListState = context.read<Products>(); // Lee el estado de los productos.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _productListState.getProducts();
+      _productListState.getProducts(); // Obtiene la lista de productos después de que se dibuje el widget.
     });
   }
 
   @override
   void dispose() {
-    _productListState.dispose();
+    _productListState.dispose(); // Libera recursos al eliminar el estado.
     super.dispose();
   }
 
@@ -55,25 +55,25 @@ class _ProductListScreenState extends State<ProductListScreen> {
       body: Stack(
         children: [
           RefreshIndicator(
-            onRefresh: () async => _productListState.getProducts(),
+            onRefresh: () async => _productListState.getProducts(), // Permite refrescar la lista de productos.
             child: StreamBuilder<List<Product>>(
               stream: _productListState.productStream,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(
-                    child: Text('Error: ${snapshot.error}'),
+                    child: Text('Error: ${snapshot.error}'), // Muestra error si hay uno.
                   );
                 }
 
                 if (!snapshot.hasData) {
-                  // Muestra el esqueleto mientras los datos se están cargando
+                  // Muestra el esqueleto mientras los datos se están cargando.
                   return const ProductListSkeleton();
                 }
 
                 var productList = snapshot.data!;
                 return _ProductListBody(
                   productList: productList,
-                  onAddToCartAnimation: _triggerAnimation,
+                  onAddToCartAnimation: _triggerAnimation, // Callback para la animación de agregar al carrito.
                 );
               },
             ),
@@ -99,12 +99,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   void _triggerAnimation() {
     setState(() {
-      _isAnimating = true;
+      _isAnimating = true; // Inicia la animación.
     });
 
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
-        _isAnimating = false;
+        _isAnimating = false; // Detiene la animación después de 2 segundos.
       });
     });
   }
@@ -116,12 +116,12 @@ class _ProductListBody extends StatelessWidget {
     required this.onAddToCartAnimation,
   });
 
-  final List<Product> productList;
-  final VoidCallback onAddToCartAnimation;
+  final List<Product> productList; // Lista de productos a mostrar.
+  final VoidCallback onAddToCartAnimation; // Callback para manejar la animación de agregar al carrito.
 
   @override
   Widget build(BuildContext context) {
-    final cart = context.watch<CartNotifier>();
+    final cart = context.watch<CartNotifier>(); // Observa el estado del carrito.
 
     return ListView.separated(
       itemCount: productList.length,
@@ -131,14 +131,14 @@ class _ProductListBody extends StatelessWidget {
         return ProductItem(
           product: product,
           onAddToCartPressed: () {
-            cart.addToCart(product);
+            cart.addToCart(product); // Agrega el producto al carrito.
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(S.of(context).addToCartSnackBar(product.title)),
                 duration: const Duration(seconds: 1),
               ),
             );
-            onAddToCartAnimation();
+            onAddToCartAnimation(); // Dispara la animación al agregar al carrito.
           },
         );
       },

@@ -6,7 +6,7 @@ class ProductImage extends StatelessWidget {
     required this.height,
     super.key,
     required this.url,
-    required this.tag,
+    required this.tag, // Etiqueta para la animación Hero
     required this.width,
   });
 
@@ -17,16 +17,17 @@ class ProductImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Hero(
-        tag: tag,
+        tag: tag, // Utiliza la etiqueta Hero para transiciones de animación
         child: ClipRRect(
           borderRadius: BorderRadius.circular(100.0),
           child: ColoredBox(
             color: Colors.white,
             child: CachedNetworkImage(
-              errorWidget: (context, url, error) => const Icon(Icons.error),
+              // Widget que carga la imagen desde una URL y la almacena en caché
+              errorWidget: (context, url, error) => const Icon(Icons.error), // Widget a mostrar en caso de error
               height: height,
               imageUrl: url,
-              placeholder: (context, url) => const CircularProgressIndicator(),
+              placeholder: (context, url) => const CircularProgressIndicator(), // Widget a mostrar mientras se carga la imagen
               width: width,
             ),
           ),

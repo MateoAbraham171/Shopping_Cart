@@ -7,22 +7,24 @@ import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:product_prices/generated/l10n.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); // Asegura que el binding de widgets esté inicializado
 
   runApp(
     MultiProvider(
       providers: [
+        // Proveedor para gestionar productos
         Provider<Products>(
           create: (context) => Products(
-            productRepository: HttpProductRepository(),
-          )..getProducts(),
-          dispose: (_, products) => products.dispose(),
+            productRepository: HttpProductRepository(), // Crea una instancia de Products con un repositorio HTTP
+          )..getProducts(), // Llama a getProducts() para cargar los productos
+          dispose: (_, products) => products.dispose(), // Libera recursos cuando el proveedor se elimina
         ),
+        // Proveedor para gestionar el carrito de compras
         ChangeNotifierProvider<CartNotifier>(
-          create: (_) => CartNotifier(),
+          create: (_) => CartNotifier(), // Crea una instancia de CartNotifier
         ),
       ],
-      child: const ProductPricesApp(),
+      child: const ProductPricesApp(), // Inicia la aplicación
     ),
   );
 }
@@ -32,62 +34,63 @@ class ProductPricesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final router = _createRouter(context);
+    final router = _createRouter(context); // Crea el enrutador
 
     return MaterialApp.router(
-      routerConfig: router,
-      debugShowCheckedModeBanner: false,
+      routerConfig: router, // Configura el enrutador
+      debugShowCheckedModeBanner: false, // Oculta el banner de depuración
       darkTheme: ThemeData.dark(),
       theme: ThemeData.dark(),
       title: 'Shopping Cart',
       localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        S.delegate, // Delegado de localización generado
+        GlobalMaterialLocalizations.delegate, // Delegado para las localizaciones de Material
+        GlobalWidgetsLocalizations.delegate, // Delegado para las localizaciones de Widgets
+        GlobalCupertinoLocalizations.delegate, // Delegado para las localizaciones de Cupertino
       ],
       supportedLocales: const [
-        Locale('en', ''),
-        Locale('es', ''),
+        Locale('en', ''), // Soporta el idioma inglés
+        Locale('es', ''), // Soporta el idioma español
       ],
     );
   }
 
   GoRouter _createRouter(BuildContext context) {
+    // Crea el enrutador usando GoRouter
     return GoRouter(
       routes: [
         GoRoute(
-          path: '/',
+          path: '/', // Ruta principal
           name: 'productList',
-          builder: (context, state) => const ProductListScreen(),
+          builder: (context, state) => const ProductListScreen(), // Pantalla de lista de productos
           routes: [
             GoRoute(
-              path: 'product/:id',
-              name: 'productDetail',
+              path: 'product/:id', // Ruta para los detalles del producto
+              name: 'productDetail', // Nombre de la ruta de detalles del producto
               builder: (context, state) {
-                final productId = state.pathParameters['id']!;
-                final products = Provider.of<Products>(context, listen: false);
-                final product = products.findProductById(productId);
+                final productId = state.pathParameters['id']!; // Obtiene el ID del producto de los parámetros de la ruta
+                final products = Provider.of<Products>(context, listen: false); // Obtiene la instancia de Products sin escuchar cambios
+                final product = products.findProductById(productId); // Busca el producto por ID
 
                 if (product == null) {
-                  return ProductNotFoundScreen(productId: productId);
+                  return ProductNotFoundScreen(productId: productId); // Si no se encuentra el producto, muestra una pantalla de error
                 }
 
-                return ProductDetailScreen(product: product);
+                return ProductDetailScreen(product: product); // Muestra la pantalla de detalles del producto
               },
             ),
             GoRoute(
-              path: 'cart',
-              name: 'cart',
-              builder: (context, state) => const CartScreen(),
+              path: 'cart', // Ruta para la pantalla del carrito
+              name: 'cart', // Nombre de la ruta del carrito
+              builder: (context, state) => const CartScreen(), // Pantalla del carrito
             ),
           ],
         ),
       ],
       errorBuilder: (context, state) => const ProductNotFoundScreen(
-        productId: 'unknown',
+        productId: 'unknown', // Pantalla de error para productos no encontrados
       ),
-      debugLogDiagnostics: true,
+      debugLogDiagnostics: true, // Habilita el registro de diagnósticos para depuración
     );
   }
 }

@@ -29,7 +29,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text(widget.product.title)),
-      body: Stack( 
+      body: Stack(
         children: [
           SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -37,7 +37,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                 ? _buildMobileLayout(theme, context, screenSize)
                 : _buildDesktopLayout(theme, context, screenSize),
           ),
-          if (_isAnimating)
+          if (_isAnimating) // Muestra la animación al agregar al carrito.
             Positioned.fill(
               child: Container(
                 color: Colors.black.withOpacity(0.2),
@@ -106,7 +106,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
             );
           },
           loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
+            if (loadingProgress == null) return child; // Muestra el child si no hay progreso de carga.
             return const Center(child: CircularProgressIndicator());
           },
         ),
@@ -160,16 +160,16 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
             child: ElevatedButton.icon(
               onPressed: () {
                 setState(() {
-                  _isAnimating = true;
+                  _isAnimating = true; // Inicia la animación.
                 });
 
                 Future.delayed(const Duration(seconds: 2), () {
                   setState(() {
-                    _isAnimating = false;
+                    _isAnimating = false; // Detiene la animación después de 2 segundos.
                   });
                 });
 
-                context.read<CartNotifier>().addToCart(widget.product);
+                context.read<CartNotifier>().addToCart(widget.product); // Agrega el producto al carrito.
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(S.of(context).addToCartSnackBar(widget.product.title)),
