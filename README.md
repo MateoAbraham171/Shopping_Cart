@@ -18,7 +18,7 @@ This project was created for the Flutter BootCamp organized by **Globant Bahía 
 - **Shimmer:** A package for adding shimmer effects.
 - **Flutter Localizations:** Provides localizations for Flutter.
 
-## ⚠️ Considerations
+## ⭐ Features
 - **Responsive Layout:** The application is designed to provide a responsive layout that adapts to different screen sizes.
 - **Navigation with GoRouter:** Utilizes the GoRouter package for efficient and straightforward navigation between screens.
 - **Skeleton Loading:** Implements skeleton loading indicators to enhance user experience during data fetching.
