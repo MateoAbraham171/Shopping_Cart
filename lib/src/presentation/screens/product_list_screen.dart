@@ -3,6 +3,7 @@ import 'package:product_prices/src/domain/domain.dart';
 import 'package:product_prices/src/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:lottie/lottie.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -13,6 +14,7 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   late final Products _productListState;
+  bool _isAnimating = false;
 
   @override
   void initState() {
@@ -50,34 +52,71 @@ class _ProductListScreenState extends State<ProductListScreen> {
           ),
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: () async => _productListState.getProducts(),
-        child: StreamBuilder<List<Product>>(
-          stream: _productListState.productStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
-              );
-            }
+      body: Stack(
+        children: [
+          RefreshIndicator(
+            onRefresh: () async => _productListState.getProducts(),
+            child: StreamBuilder<List<Product>>(
+              stream: _productListState.productStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                }
 
-            if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-            var productList = snapshot.data!;
-            return _ProductListBody(productList: productList);
-          },
-        ),
+                var productList = snapshot.data!;
+                return _ProductListBody(
+                  productList: productList,
+                  onAddToCartAnimation: _triggerAnimation,
+                );
+              },
+            ),
+          ),
+          if (_isAnimating)
+            Positioned.fill(
+              child: Container(
+                color: Colors.black.withOpacity(0.2),
+                child: Center(
+                  child: Lottie.asset(
+                    'assets/lottie/add_to_cart_animation.json',
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
+  }
+
+  void _triggerAnimation() {
+    setState(() {
+      _isAnimating = true;
+    });
+
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isAnimating = false;
+      });
+    });
   }
 }
 
 class _ProductListBody extends StatelessWidget {
-  const _ProductListBody({required this.productList});
+  const _ProductListBody({
+    required this.productList,
+    required this.onAddToCartAnimation,
+  });
 
   final List<Product> productList;
+  final VoidCallback onAddToCartAnimation;
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +137,7 @@ class _ProductListBody extends StatelessWidget {
                 duration: const Duration(seconds: 1),
               ),
             );
+            onAddToCartAnimation();
           },
         );
       },
